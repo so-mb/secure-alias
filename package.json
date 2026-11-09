@@ -6,5 +6,8 @@
   "engines": {
     "node": ">=24.21.0 <25",
     "npm": ">=11 <12"
+  },
+  "scripts": {
+    "lab:prepare": "sh scripts/gpas-setup.sh"
   }
 }
