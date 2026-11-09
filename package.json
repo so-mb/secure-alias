@@ -8,6 +8,15 @@
     "npm": ">=11 <12"
   },
   "scripts": {
-    "lab:prepare": "sh scripts/gpas-setup.sh"
+    "lab:prepare": "sh scripts/gpas-setup.sh",
+    "lab:smoke": "node scripts/gpas-smoke.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "soap": "1.14.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "typescript": "7.0.2"
   }
 }
