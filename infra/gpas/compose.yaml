@@ -1,0 +1,48 @@
+# Adapted from University Medicine Greifswald's gPAS 2026.1.1 MariaDB distribution (AGPLv3).
+# Upstream archive can be found at:
+# https://file.ths-greifswald.de/releases/gpas/2026.1.1/compose-image-gpas-mariadb-2026.1.1.zip
+
+name: secure-alias
+
+services:
+  mariadb:
+    image: mariadb:11@sha256:c4124d1afa875e47f2892edf26b482fa54f796e2f342d3717a04ca091a22a9bd
+
+    environment:
+      MARIADB_ROOT_PASSWORD: secure-alias-dev
+      TZ: Europe/Berlin
+
+    volumes:
+      - ../../.local/gpas/compose-image-mariadb/sqls:/docker-entrypoint-initdb.d:ro
+      - mappings:/var/lib/mysql
+
+    command:
+      - --max_allowed_packet=20M
+      - --default-time-zone=Europe/Berlin
+      - --innodb_buffer_pool_size=256M
+
+    mem_limit: 768m
+
+  gpas:
+    image: mosaicgreifswald/gpas:2026.1.1@sha256:20a2db016fd725a28150c67420790bc73604ae2c9ef50c6d9e80a9d007580ee0
+
+    ports:
+      - "127.0.0.1:18080:8080"
+
+    environment:
+      TTP_DB_DBMS: mariadb
+      WF_WAIT_FOR_PORTS: mariadb:3306:120
+      WF_HEALTHCHECK_URLS: "http://localhost:8080/gpas-rest/health/state"
+      WF_NO_ADMIN: "true"
+      TTP_DISABLE_FHIR_GATEWAY: "TRUE"
+      TTP_DISABLE_NOTI_CLIENT: "TRUE"
+      TTP_DISABLE_NOTI_SERVICE: "TRUE"
+      JAVA_OPTS: "-server -Xms256M -Xmx2G -XX:MetaspaceSize=128M -XX:MaxMetaspaceSize=512M -Djava.net.preferIPv4Stack=true -Djava.awt.headless=true -Djboss.modules.system.pkgs=org.jboss.byteman"
+
+    depends_on:
+      - mariadb
+
+    mem_limit: 3g
+
+volumes:
+  mappings:
