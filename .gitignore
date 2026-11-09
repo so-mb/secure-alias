@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Local files
+.env
+*.log
+.DS_Store
+
+# gPAS downloads
+/.local/gpas/
+/.local/gpas-*.zip
+
+# Smoke-test results
+/.local/smoke/
