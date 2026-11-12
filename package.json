@@ -10,6 +10,7 @@
   "scripts": {
     "lab:prepare": "sh scripts/gpas-setup.sh",
     "lab:smoke": "node scripts/gpas-smoke.ts",
+    "fhir:generate": "node scripts/fhir-generate.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

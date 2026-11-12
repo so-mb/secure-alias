@@ -12,3 +12,6 @@ node_modules/
 
 # Smoke-test results
 /.local/smoke/
+
+# Generated FHIR data
+/.local/data/
