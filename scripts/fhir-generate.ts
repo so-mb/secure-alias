@@ -4,6 +4,11 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { parseArgs } from "node:util";
 
+// FHIR R4 definitions for the resources generated from this script can be found at:
+// https://hl7.org/fhir/R4/bundle.html
+// https://hl7.org/fhir/R4/patient.html
+// https://hl7.org/fhir/R4/heartrate.html
+
 type Gender = "female" | "male" | "other" | "unknown";
 type Names = {
   givenNames: { female: string[]; male: string[] };
